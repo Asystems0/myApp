@@ -1,13 +1,35 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-
 const app = express();
-const port = process.env.PORT || 8080;
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+require('dotenv/config');
 
-app.get('/', (_, res) => {
-    res.send("Your Express App");
+
+//ROUTES
+const routerFunc = (router, filePath) => {
+    app.use(router, require(filePath));
+}
+
+// routerFunc('/users', './routes/users');
+// routerFunc('/restaurants', './routes/restaurants');
+
+app.use(express.json());
+
+const userRoute = require('./routes/users');
+app.use('/users', userRoute);
+
+const restaurantRoute = require('./routes/restaurants');
+app.use('/restaurants', restaurantRoute);
+
+app.get('/', (req, res) => {
+    res.send("HOME PAGE.");
 });
 
-app.listen(port, () => {
-    console.log("Server is running on port: ${port}"); 
-});
+// Connect to DB (not collection!)
+mongoose.connect(process.env.MONGO_CONNECTION, 
+                { useNewUrlParser: true },
+                () => console.log("Connect to DB!")
+);
+
+//LISTENING RO THE SERVER
+app.listen(8080);

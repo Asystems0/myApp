@@ -1,0 +1,18 @@
+{
+    "id": "123456789",
+    "firstName": "Asaf",
+    "lastName": "ASY",
+    "email": "Asaf@gmail.com",
+    "phoneNumber": "050000000",
+    "password": "mypass",
+    "credit": "1111000011110000",
+    "birthday": "1.1.2000",
+    "age": "21",
+}
+
+{
+    "Name": "HumusEliahuJerusalem",
+    "location": "JR",
+    "email": "humuselJR@gmail.com",
+    "password": "Eli"
+}
