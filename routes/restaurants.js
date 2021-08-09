@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     res.send('Resaurants!');
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     console.log(req.body);
     const restaurant = new restaurants({
         name: req.body.name,
@@ -16,14 +16,12 @@ router.post('/', (req, res) => {
         password: req.body.password    
     });
 
-    restaurant.save()
-        .then(data => {
-            res.json(data);
-        })
-        .catch(err => {
-            res.json({message: err})
-        });
-
+    try{
+        const savedRestaurant = await restaurant.save();
+        res.json(savedRestaurant);
+    }catch(err){
+        res.json({ message: err })
+    }
 });
 
 module.exports = router;

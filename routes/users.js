@@ -1,14 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const users = require('../models/users_schema');
+const Users = require('../models/users_schema');
 
-router.get('/', (req, res) => {
-    res.send("users!");
+// GET ALL USERS 
+router.get('/', async (req, res) => {
+    try{
+        const users = await Users.find();
+        res.json(users);
+    }catch(err){
+        res.json({ message: err });
+    }
 });
 
-router.post('/', (req, res) => {
+// SUBMIT A NEW USER
+router.post('/', async (req, res) => {
     console.log(req.body);
-    const user = new users({
+    const user = new Users({
         id: req.body.id,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -21,13 +28,49 @@ router.post('/', (req, res) => {
 
     });
 
-    user.save()
-        .then(data => {
-            res.json(data);
-        })
-        .catch(err => {
-            res.json({message: err})
-        });
+    try{
+        const savedUser = await user.save();
+        res.json(savedUser);
+    }catch(err){
+        res.json({message: err});
+    }
+    
 });
+
+//SPECIFIC USER
+router.get('/:userID', async (req, res) => {
+    console.log(req.params.userID);
+    try{
+        const user = await Users.findById(req.params.userID);
+        res.json(user);
+    }catch(err){
+        res.json({ message: err });
+    }
+});
+
+// DELETE USER
+router.delete('/:userID', async (req, res) => {
+    try{
+        const removeUser = await Users.remove({ _id: req.params.userID});
+        res.json(removeUser);
+    }catch(err){
+        res.json({ message: err })
+    }
+});
+
+// UPDATE USER
+router.patch('/:userID', async (req, res) => {
+    try{
+        const updateduser = await Users.updateOne(
+            {_id: req.params.userID },
+            { $set: {credit: req.body.credit} }
+        );
+        res.json(updateduser);    
+    }catch(err){
+        console.log(err);
+        res.json({ message: err })
+    }
+});
+
 
 module.exports = router;
