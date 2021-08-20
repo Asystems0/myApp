@@ -1,10 +1,15 @@
 const express = require('express');
 const { model, Model } = require('mongoose');
 const router = express.Router();
-const restaurants = require('../models/restaurants_schema')
+const Restaurants = require('../models/restaurants_schema')
 
-router.get('/', (req, res) => {
-    res.send('Resaurants!');
+router.get('/', async (req, res) => {
+    try{
+        const restaurants = await Restaurants.find();
+        res.json(restaurants);
+    }catch(err){
+        res.json({message: err})
+    }
 });
 
 router.post('/', async (req, res) => {

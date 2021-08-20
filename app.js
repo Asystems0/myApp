@@ -4,11 +4,12 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 require('dotenv/config');
 
+const PORT = 8080;
 
 //ROUTES
-const routerFunc = (router, filePath) => {
-    app.use(router, require(filePath));
-}
+// const routerFunc = (router, filePath) => {
+//     app.use(router, require(filePath));
+// }
 
 // routerFunc('/users', './routes/users');
 // routerFunc('/restaurants', './routes/restaurants');
@@ -32,4 +33,4 @@ mongoose.connect(process.env.MONGO_CONNECTION,
 );
 
 //LISTENING RO THE SERVER
-app.listen(8080);
+app.listen(PORT, () => console.log(`Server running on port: http://localhost:${PORT}`));
