@@ -6,15 +6,8 @@ require('dotenv/config');
 
 const PORT = 8080;
 
-//ROUTES
-// const routerFunc = (router, filePath) => {
-//     app.use(router, require(filePath));
-// }
-
-// routerFunc('/users', './routes/users');
-// routerFunc('/restaurants', './routes/restaurants');
-
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
+app.use(express.static('public'));
 
 const userRoute = require('./routes/users');
 app.use('/users', userRoute);
@@ -22,13 +15,21 @@ app.use('/users', userRoute);
 const restaurantRoute = require('./routes/restaurants');
 app.use('/restaurants', restaurantRoute);
 
-app.get('/', (req, res) => {
-    res.send("HOME PAGE.");
-});
+// app.post('/api', (req, res) => {
+//     // console.log(req.body);
+//     console.log("I got a request!");
+//     const data = req.body;
+//     res.json({test: 123});
+// });
+
+const getUsers = require("./controllers/users");
+app.get('/api', getUsers.getUsers);
 
 // Connect to DB (not collection!)
 mongoose.connect(process.env.MONGO_CONNECTION, 
-                { useNewUrlParser: true },
+                { useNewUrlParser: true,
+                    useUnifiedTopology: true,
+                    useCreateIndex: true},
                 () => console.log("Connect to DB!")
 );
 

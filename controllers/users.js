@@ -3,7 +3,7 @@ const Users = require('../models/users_schema');
 module.exports.getUsers = async (req, res) => {
     try{
         const users = await Users.find();
-        res.json(users);
+        return res.json(users);
     }catch(err){
         res.json({ message: err });
     }
