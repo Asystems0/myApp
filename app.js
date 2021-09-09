@@ -15,15 +15,28 @@ app.use('/users', userRoute);
 const restaurantRoute = require('./routes/restaurants');
 app.use('/restaurants', restaurantRoute);
 
-// app.post('/api', (req, res) => {
-//     // console.log(req.body);
-//     console.log("I got a request!");
-//     const data = req.body;
-//     res.json({test: 123});
+const userFunctions = require("./controllers/users");
+
+app.post('/api', userFunctions.addUser);
+
+app.get('/api', userFunctions.getUsers);
+
+// app.get('/api', (req, res) => {
+//     res.send("Hello word!@");
 // });
 
-const getUsers = require("./controllers/users");
-app.get('/api', getUsers.getUsers);
+app.get('/api2', (req, res) => {
+    res.send("Hello word!");
+});
+
+
+// app.post('/api', (req, res) => {
+//     console.log(req.body);
+//     console.log("I got a request!");
+//     // const data = req.body;
+//     // res.json({test: 123});
+// });
+
 
 // Connect to DB (not collection!)
 mongoose.connect(process.env.MONGO_CONNECTION, 

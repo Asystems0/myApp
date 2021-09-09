@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Create user</title>
+        <!-- <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet"> -->
+        <!-- <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet"> -->
+        <!-- <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+        <script src="https://kit.fontawesome.com/38d519e40f.js" crossorigin="anonymous"></script>
+        <link href="newuser.css" rel="stylesheet" type="text/css">
+    </head>
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h2 class="title">Create Account</h2>
+        </div>
+        
+        <form class="form" id="form">
+
+            <div class="form-control">
+                <label>First name: </label>
+                <input type="text" placeholder="John" id="firstName">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Last name: </label>
+                <input type="text" placeholder="Bush" id="lastName">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+            <div class="form-control">
+                <label>E-mail: </label>
+                <input type="email" placeholder="example@gmail.com" id="mail">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+            <div class="form-control">
+                <label>phone number: </label>
+                <input type="number" placeholder="+972" id="phoneNumber">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+                
+            <div class="form-control">
+                <label>Password: </label>
+                <input type="password" placeholder="Password" id="password">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+            
+            <div class="form-control">
+                <label>Password check: </label>
+                <input type="password" placeholder="Password two" id="password2">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+            <div class="form-control">
+                <label>Credit card:</label>
+                <input type="number" placeholder="John" id="credit">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+            <div class="form-control">
+                <label>ID:</label>
+                <input type="text" placeholder="01234567" id="userId">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+
+            <div class="form-control">
+                <label>Birthday: </label>
+                <input type="date" placeholder="John" id="birthday">
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-exclamation-circle"></i>
+                <small>Error message</small>
+            </div>
+
+
+                <button id="submit">Submit</button>
+        </form>
+
+
+        <!-- <p>
+            latitude: <span id="latitude"></span>&deg;<br/>
+            longitude: <span id="longitude"></span>&deg;
+        </p> -->
+        
+        
+        <script src="newuser.js"></script>
+        
+
+    </div>
+</body>
+</html>

@@ -9,27 +9,60 @@ module.exports.getUsers = async (req, res) => {
     }
 };
 
+
+
+var valid = true;
+function checkIfUserInputIsBlank(input){
+    if (input === ''){
+        valid = false;
+    }
+}
+
 module.exports.addUser = async (req, res) => {
     console.log(req.body);
-    const user = new Users({
-        id: req.body.id,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        password: req.body.password,
-        credit: req.body.credit,
-        birthday: req.body.birthday,
-        age: req.body.age
 
-    });
+    checkIfUserInputIsBlank(req.body.id);
+    checkIfUserInputIsBlank(req.body.firstName);
+    checkIfUserInputIsBlank(req.body.lastName);
+    checkIfUserInputIsBlank(req.body.email);
+    checkIfUserInputIsBlank(req.body.phoneNumber);
+    checkIfUserInputIsBlank(req.body.password);
+    checkIfUserInputIsBlank(req.body.credit);
+    checkIfUserInputIsBlank(req.body.age);
 
-    try{
-        const savedUser = await user.save();
-        res.json(savedUser);
-    }catch(err){
-        res.json({message: err});
-    }    
+    if(req.body.age < 18){
+        res.json({exp: "age under 18"});
+    }
+
+    console.log("Valid: ", valid);
+
+    if (valid === true){
+
+        const user = new Users({
+            id: req.body.id,
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            phoneNumber: req.body.phoneNumber,
+            password: req.body.password,
+            credit: req.body.credit,
+            birthday: req.body.birthday,
+            age: req.body.age
+        });
+
+        console.log("I got a request!");
+
+        try{
+            const savedUser = await user.save();
+            res.send(JSON.stringify(`{ "welcome": ${user.firstName} }`));
+            // res.json(savedUser);
+            // res.json({test: 111});
+
+        }catch(err){
+            res.json({message: err});
+        }
+        
+    }  
 };
 
 module.exports.getUser = async (req, res) => {

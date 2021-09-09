@@ -1,33 +1,29 @@
 body {
-    background-color: cornflowerblue;
     /* background-color: #f117ff; */
-    /* background-color: #9b59b6; */
-    /* 
+    background-color: #9b59b6;
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 75px;
     margin: 0;
-    text-align: center; */
+    /* text-align: center; */
 }
 
-.title {
-    text-align: center;
-    color: white;
-    color: black;
-}
+/* .title { */
+    /* text-align: center; */
+    /* color: white; */
+    /* color: black; */
+/* } */
 
 #homepage {
     color: white;
 }
 
-/* * {
+* {
     font-family: 'Open Sans',sans-serif;
     box-sizing: border-box;
-    background-color: cornflowerblue;
-} */
-
-/*
+    /* background-color: cornflowerblue; */
+}
 
 .container {
     background-color: white;
@@ -45,6 +41,7 @@ body {
 
 .header h2 {
     margin: 0;
+    text-align: center;
 }
 
 .form {
@@ -119,4 +116,4 @@ body {
     font-size: 16px;
     padding: 10px;
     width: 100%;
-} */
+}
