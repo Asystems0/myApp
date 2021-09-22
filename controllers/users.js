@@ -28,10 +28,19 @@ module.exports.addUser = async (req, res) => {
     checkIfUserInputIsBlank(req.body.phoneNumber);
     checkIfUserInputIsBlank(req.body.password);
     checkIfUserInputIsBlank(req.body.credit);
-    checkIfUserInputIsBlank(req.body.age);
+    // checkIfUserInputIsBlank(req.body.age);
 
-    if(req.body.age < 18){
-        res.json({exp: "age under 18"});
+    const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
+
+    const age = getAge(req.body.birthday);
+
+    if(age < 18){
+        valid = false;
+        console.log("Under");
+        res.status(400).send(JSON.stringify('age under 18'));
+        // errors.age = "age under 18";
+        // res.status(404).json({ errors });
+        return;
     }
 
     console.log("Valid: ", valid);
@@ -47,22 +56,35 @@ module.exports.addUser = async (req, res) => {
             password: req.body.password,
             credit: req.body.credit,
             birthday: req.body.birthday,
-            age: req.body.age
+            age: age
         });
 
         console.log("I got a request!");
 
         try{
             const savedUser = await user.save();
-            res.send(JSON.stringify(`{ "welcome": ${user.firstName} }`));
-            // res.json(savedUser);
-            // res.json({test: 111});
+            res.status(200).send(JSON.stringify(`welcome, ${user.firstName}`));
+            res.json(savedUser);
+            console.log("Added new user to DB");
+            return;
 
         }catch(err){
-            res.json({message: err});
+            res.status(404).json(Object.keys(err.keyPattern)[0]);
+            // res.status(404).json({message: err.keyPattern});
+            console.log(Object.keys(err.keyPattern)[0]);
+            // console.log(err.keyPattern);
+            // res.json({message: err});
+            // console.log(err);
+            // console.log(Object.keys(err[keyValue]));
         }
         
-    }  
+    } else {
+        valid = true;
+        
+        // errors.conection = "Mis";
+        // res.status(404).json({ errors });
+        // return;
+    } 
 };
 
 module.exports.getUser = async (req, res) => {

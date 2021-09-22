@@ -23,6 +23,7 @@ function sendData(){
 
         data = checkInputs();
 
+        console.log("Valid: " ,valid);
         if (valid === true){
 
             const options = {
@@ -35,21 +36,34 @@ function sendData(){
             
             };
             
-            console.log("HHH");
             const res = await fetch('/api', options);
             const json = await res.json();
-            document.body.innerHTML = json;
-            // const myDiv = document.createElement('div');
-            // myDiv.textContent = "Welcome!";
-            // document.body.append(myDiv);
-        } 
+            if (res.status === 200){
+                console.log("OK");
+                document.body.innerHTML = json;
+
+            } else {
+
+                } if (json === "email") {
+                    setErrorFor(mail, "The email is in used");
+                    console.log("sdsdsd");
+                } else if (json === 'age under 18'){
+                    setErrorFor(birthday, "Age cannot be under 18");
+                } else {
+                    // console.log(res.status, json, res);
+                    console.log(json);
+                }
+            
+        } else {
+            valid = true;
+        }
         
     });
 
     // console.log(data);
 }
 
-// const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
+const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)
 
 
 function checkInputs() {
@@ -65,43 +79,8 @@ function checkInputs() {
     const userIdValue = userId.value.trim();
     const birthdayValue = birthday.value.trim();
 
-    const age = () => Math.floor((new Date() - new Date(birthday).getTime()) / 3.15576e+10)
-
-    // const age = getAge(birthdayValue);
-
-
-    // isBlank(firstNameValue, firstName, "First name cannot be blank");
-    // isBlank(lastNameValue, lastName, "Last name cannot be blank");
-    
-    // if(mailValue === '')
-    // {
-    //     setErrorFor(mail, "Email cannot be blank")
-    // } else if (!isEmail(mailValue)){
-    //     setErrorFor(mail, "Email is not valid")
-    // } else {
-    //     listData.push(mail);
-    //     setSuccessFor(mail);
-    // }
-
-    // isBlank(phoneNumberValue, phoneNumber, "Phone number cannot be blank");
-    // isBlank(passwordValue, password, "psssword cannot be blank");
-
-    // if(password2Value === '')
-    // {
-    //     setErrorFor(password2, "Password check cannot be blank")
-    // } else if (password2Value !== passwordValue){
-    //     setErrorFor(password2, "Passwords does not match")
-    // } else {
-    //     listData.push(password);
-    //     setSuccessFor(password2);
-    // }
-
-    // isBlank(creditValue, credit, "Credit card cannot be blank");
-    // isBlank(userIdValue, userId, "User id cannot be blank");
-    // isBlank(birthdayValue, birthday, "Birthday cannot be blank");
-
-    // listData = {firstNameValue, lastNameValue, mailValue, phoneNumberValue, passwordValue, creditValue, userIdValue, birthdayValue};
-
+    const age = getAge(birthdayValue);
+    console.log(age);
 
 
     if(firstNameValue === ''){
@@ -215,28 +194,25 @@ function checkInputs() {
         // show error
         // add error class
         setErrorFor(birthday, "Birthday cannot be blank")
-    } else {
+    
+    // } else if (age < 18){
+    //     // If valid === True --> req.body is OK and can send to api.
+    //     valid = false;
+
+    //     // show error
+    //     // add error class
+    //     setErrorFor(birthday, "Age cannot be under 18")
+    }
+     else {
         // add success class
         // listData.push(birthday);
         setSuccessFor(birthday);
     }
 
-    listData = {id: userIdValue, firstName: firstNameValue, lastName: lastNameValue, email: mailValue, phoneNumber: phoneNumberValue, password: passwordValue, credit: creditValue, birthday: birthdayValue, age: age};
-    // listData = {firstName: firstNameValue, lastNameValue, mailValue, phoneNumberValue, passwordValue, creditValue, userIdValue, birthdayValue};
+    listData = {id: userIdValue, firstName: firstNameValue, lastName: lastNameValue, email: mailValue, phoneNumber: phoneNumberValue, password: passwordValue, credit: creditValue, birthday: birthdayValue};
     console.log(listData);
     return listData;
 
-};
-
-function isBlank(value, value2, message){
-    if(value === ''){
-        // show error
-        // add error class
-        setErrorFor(value2, message)
-    } else {
-        // add success class
-        setSuccessFor(value2);
-    }
 };
 
 function setErrorFor(input, message){
@@ -258,3 +234,47 @@ function setSuccessFor(input){
 function isEmail(email) {
     return /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email);
 }
+
+
+// function isBlank(value, value2, message){
+//     if(value === ''){
+//         // show error
+//         // add error class
+//         setErrorFor(value2, message)
+//     } else {
+//         // add success class
+//         setSuccessFor(value2);
+//     }
+// };
+
+    // isBlank(firstNameValue, firstName, "First name cannot be blank");
+    // isBlank(lastNameValue, lastName, "Last name cannot be blank");
+    
+    // if(mailValue === '')
+    // {
+    //     setErrorFor(mail, "Email cannot be blank")
+    // } else if (!isEmail(mailValue)){
+    //     setErrorFor(mail, "Email is not valid")
+    // } else {
+    //     listData.push(mail);
+    //     setSuccessFor(mail);
+    // }
+
+    // isBlank(phoneNumberValue, phoneNumber, "Phone number cannot be blank");
+    // isBlank(passwordValue, password, "psssword cannot be blank");
+
+    // if(password2Value === '')
+    // {
+    //     setErrorFor(password2, "Password check cannot be blank")
+    // } else if (password2Value !== passwordValue){
+    //     setErrorFor(password2, "Passwords does not match")
+    // } else {
+    //     listData.push(password);
+    //     setSuccessFor(password2);
+    // }
+
+    // isBlank(creditValue, credit, "Credit card cannot be blank");
+    // isBlank(userIdValue, userId, "User id cannot be blank");
+    // isBlank(birthdayValue, birthday, "Birthday cannot be blank");
+
+    // listData = {firstNameValue, lastNameValue, mailValue, phoneNumberValue, passwordValue, creditValue, userIdValue, birthdayValue};
