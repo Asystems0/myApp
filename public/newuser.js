@@ -44,15 +44,21 @@ function sendData(){
 
             } else {
 
-                } if (json === "email") {
+                } if (json.email === 1){
                     setErrorFor(mail, "The email is in used");
-                    console.log("sdsdsd");
+                } else if (json === 'email is illegal'){
+                    setErrorFor(mail, "email is illegal");
+                } else if (json.id === 1){
+                    setErrorFor(userId, "The ID is in used");
+                } else if (json.phoneNumber === 1){
+                    setErrorFor(phoneNumber, "The phone number is in used");
                 } else if (json === 'age under 18'){
                     setErrorFor(birthday, "Age cannot be under 18");
                 } else {
                     // console.log(res.status, json, res);
                     console.log(json);
-                }
+                    console.log(res);
+                }                
             
         } else {
             valid = true;
@@ -83,17 +89,17 @@ function checkInputs() {
     console.log(age);
 
 
-    if(firstNameValue === ''){
-        // If valid === True --> req.body is OK and can send to api.
-        valid = false;
+    // if(firstNameValue === ''){
+    //     // If valid === True --> req.body is OK and can send to api.
+    //     valid = false;
 
-        // show error
-        // add error class
-        setErrorFor(firstName, "First name cannot be blank")
-    } else {
-        // add success class
-        setSuccessFor(firstName);
-    }
+    //     // show error
+    //     // add error class
+    //     setErrorFor(firstName, "First name cannot be blank")
+    // } else {
+    //     // add success class
+    //     setSuccessFor(firstName);
+    // }
 
     if(lastNameValue === ''){
         // If valid === True --> req.body is OK and can send to api.
@@ -195,13 +201,13 @@ function checkInputs() {
         // add error class
         setErrorFor(birthday, "Birthday cannot be blank")
     
-    // } else if (age < 18){
-    //     // If valid === True --> req.body is OK and can send to api.
-    //     valid = false;
+    } else if (age < 18){
+        // If valid === True --> req.body is OK and can send to api.
+        valid = false;
 
-    //     // show error
-    //     // add error class
-    //     setErrorFor(birthday, "Age cannot be under 18")
+        // show error
+        // add error class
+        setErrorFor(birthday, "Age cannot be under 18")
     }
      else {
         // add success class

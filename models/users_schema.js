@@ -31,7 +31,8 @@ const userSchema = mongoose.Schema({
     },
     credit: {
         type: Number,
-        require: true
+        require: true,
+        unique: true
     },
     birthday: {
         type: Date,
@@ -39,7 +40,7 @@ const userSchema = mongoose.Schema({
     },
     age: {
         type: Number,
-        min: 14,
+        min: 18,
         max: 120,
         require: true
     },

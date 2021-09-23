@@ -17,6 +17,9 @@ function checkIfUserInputIsBlank(input){
         valid = false;
     }
 }
+function isEmail(email) {
+    return /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(email);
+}
 
 module.exports.addUser = async (req, res) => {
     console.log(req.body);
@@ -38,8 +41,13 @@ module.exports.addUser = async (req, res) => {
         valid = false;
         console.log("Under");
         res.status(400).send(JSON.stringify('age under 18'));
-        // errors.age = "age under 18";
-        // res.status(404).json({ errors });
+        return;
+    }
+
+    if (!isEmail(req.body.email)){
+        valid = false;
+        console.log("Email is illegal");
+        res.status(400).send(JSON.stringify('email is illegal'));
         return;
     }
 
@@ -63,27 +71,18 @@ module.exports.addUser = async (req, res) => {
 
         try{
             const savedUser = await user.save();
-            res.status(200).send(JSON.stringify(`welcome, ${user.firstName}`));
-            res.json(savedUser);
             console.log("Added new user to DB");
+            res.status(200).send(JSON.stringify(`welcome, ${user.firstName}`));
+            // res.json(savedUser);
             return;
 
         }catch(err){
-            res.status(404).json(Object.keys(err.keyPattern)[0]);
-            // res.status(404).json({message: err.keyPattern});
-            console.log(Object.keys(err.keyPattern)[0]);
-            // console.log(err.keyPattern);
-            // res.json({message: err});
-            // console.log(err);
-            // console.log(Object.keys(err[keyValue]));
+
+            res.status(400).json(err.keyPattern);
         }
         
     } else {
         valid = true;
-        
-        // errors.conection = "Mis";
-        // res.status(404).json({ errors });
-        // return;
     } 
 };
 
